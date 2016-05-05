@@ -1,2 +1,0 @@
-module PostfavsHelper
-end
