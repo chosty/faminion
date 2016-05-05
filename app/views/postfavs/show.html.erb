@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @postfav.post %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @postfav.user %>
+</p>
+
+<%= link_to 'Edit', edit_postfav_path(@postfav) %> |
+<%= link_to 'Back', postfavs_path %>
