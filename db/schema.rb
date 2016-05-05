@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505114518) do
+ActiveRecord::Schema.define(version: 20160505120333) do
 
   create_table "event_posts", force: :cascade do |t|
     t.integer  "event_id"
@@ -49,6 +49,20 @@ ActiveRecord::Schema.define(version: 20160505114518) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "family_id"
+    t.integer  "user_id"
+    t.integer  "reply_post_id"
+    t.integer  "fav_count"
+    t.string   "content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "posts", ["family_id"], name: "index_posts_on_family_id"
+  add_index "posts", ["reply_post_id"], name: "index_posts_on_reply_post_id"
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",            null: false
