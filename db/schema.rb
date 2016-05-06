@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505120557) do
+ActiveRecord::Schema.define(version: 20160506122439) do
 
   create_table "event_posts", force: :cascade do |t|
     t.integer  "event_id"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20160505120557) do
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",            null: false
+    t.string   "email",                        null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.datetime "created_at"
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 20160505120557) do
     t.integer  "family_id"
     t.string   "name"
     t.date     "birthday"
-    t.string   "gender"
-    t.string   "role"
+    t.integer  "gender",           default: 0, null: false
+    t.integer  "role",             default: 0, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
