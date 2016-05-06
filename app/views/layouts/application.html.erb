@@ -8,10 +8,18 @@
 </head>
 <body>
 
+
+
 <div id="nav">
   <% if current_user %>
     <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
     <%= link_to "Logout", :logout, method: :post %>
+    <%= link_to "Family", families_path %>
+    <%= link_to "User", users_path %>
+    <%= link_to "Event", events_path %>
+    <%= link_to "ETU", event_target_users_path %>
+    <%= link_to "Post", posts_path%>
+    <%= link_to "PostFavs", post_favs_path%>
   <% else %>
     <%= link_to "Register", new_user_path %> |
     <%= link_to "Login", :login %>
