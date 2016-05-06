@@ -6,11 +6,14 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    if @user = login(params[:email], params[:password])
-      redirect_back_or_to(:users, notice: 'Login successful')
-    else
-      flash.now[:alert] = 'Login failed'
-      render action: 'new'
+    respond_to do |format|
+      if @user = login(params[:email], params[:password])
+        format.html { redirect_back_or_to(:users, notice: 'Login successful') }
+        format.json { render json: @user.to_json, status: :ok }
+      else
+        format.html { flash.now[:alert] = 'Login failed'; render action: 'new' }
+        format.json { render json: {}, status: :unprocessable_entity }
+      end
     end
   end
 
