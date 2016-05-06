@@ -8,4 +8,6 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :post_favs
   has_many :events, through: :event_target_users
+
+  scope :my_families, ->(user_id){ where(family_id: Family.where(id: User.find(user_id).family_id)) }
 end
