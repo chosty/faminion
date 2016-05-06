@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506122439) do
+ActiveRecord::Schema.define(version: 20160506132904) do
 
   create_table "event_posts", force: :cascade do |t|
     t.integer  "event_id"
@@ -64,10 +64,10 @@ ActiveRecord::Schema.define(version: 20160506122439) do
     t.integer  "family_id"
     t.integer  "user_id"
     t.integer  "reply_post_id"
-    t.integer  "fav_count"
+    t.integer  "post_favs_count"
     t.string   "content"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "posts", ["family_id"], name: "index_posts_on_family_id"
