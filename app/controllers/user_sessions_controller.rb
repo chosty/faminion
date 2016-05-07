@@ -1,5 +1,7 @@
 class UserSessionsController < ApplicationController
   skip_before_action :require_login, except: [:destroy]
+  skip_before_action :require_token, except: [:destroy]
+  skip_after_action :clean_up_user_login
 
   def new
     @user = User.new
@@ -9,10 +11,10 @@ class UserSessionsController < ApplicationController
     respond_to do |format|
       if @user = login(params[:email], params[:password])
         format.html { redirect_back_or_to(:users, notice: 'Login successful') }
-        format.json { render json: @user.to_json, status: :ok }
+        format.json { render json: @user.session_json, status: :ok }
       else
         format.html { flash.now[:alert] = 'Login failed'; render action: 'new' }
-        format.json { render json: {}, status: :unprocessable_entity }
+        format.json { render json: {}, status: :login_fail }
       end
     end
   end

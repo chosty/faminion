@@ -30,5 +30,8 @@ class User < ActiveRecord::Base
   def family_events
     Event.where(family_id: self.family_id).all
   end
-
+  
+  def session_json
+    {id: id, email: email, access_token: id}.to_json
+  end
 end
