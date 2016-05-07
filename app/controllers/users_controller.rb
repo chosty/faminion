@@ -73,10 +73,14 @@ class UsersController < ApplicationController
   end
 
   def icon_upload
-    image = current_user.user_icon
-    image.icon = request.raw_post
-    image.save!
-    render json: image, except: [:icon]
+    image = current_user.user_icon || UserIcon.new(user_id: current_user.id)
+    image.icon = request.body.read
+    image.content_type = request.media_type
+    if image.save
+      render json: image, except: [:icon]
+    else
+      render json: {error: :faild_save}.to_json , status: 500
+    end
   end
 
   private
