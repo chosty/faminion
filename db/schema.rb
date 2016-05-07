@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507072108) do
+ActiveRecord::Schema.define(version: 20160507072710) do
 
   create_table "event_posts", force: :cascade do |t|
     t.integer  "event_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160507072108) do
     t.string   "access_token"
   end
 
+  add_index "users", ["access_token"], name: "index_users_on_access_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["family_id"], name: "index_users_on_family_id"
 
