@@ -11,7 +11,10 @@ class UserSessionsController < ApplicationController
     respond_to do |format|
       if @user = login(params[:email], params[:password])
         format.html { redirect_back_or_to(:users, notice: 'Login successful') }
-        format.json { render json: @user.session_json, status: :ok }
+        format.json {
+          @user.login_by_api
+          render json: @user.session_json, status: :ok
+        }
       else
         format.html { flash.now[:alert] = 'Login failed'; render action: 'new' }
         format.json { render json: {}, status: :login_fail }

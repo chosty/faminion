@@ -30,8 +30,15 @@ class User < ActiveRecord::Base
   def family_events
     Event.where(family_id: self.family_id).all
   end
-  
+
   def session_json
-    {id: id, email: email, access_token: id}.to_json
+    {id: id, email: email, access_token: access_token}.to_json
   end
+
+  #ログイン時にアクセストークン生成、DB更新
+  def login_by_api
+    self.access_token = SecureRandom.hex(16)
+    self.save
+  end
+
 end
