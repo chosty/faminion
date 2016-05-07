@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507125532) do
+ActiveRecord::Schema.define(version: 20160507144234) do
 
   create_table "event_posts", force: :cascade do |t|
     t.integer  "event_id"
@@ -63,8 +63,9 @@ ActiveRecord::Schema.define(version: 20160507125532) do
   create_table "post_pictures", force: :cascade do |t|
     t.integer  "post_id"
     t.binary   "picture"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "content_type"
   end
 
   add_index "post_pictures", ["post_id"], name: "index_post_pictures_on_post_id"

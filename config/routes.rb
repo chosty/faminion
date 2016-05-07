@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   root :to => 'user_sessions#new'
 
   resources :families
-  resources :users
+  resources :users do
+    get 'icon' => 'users#icon_download'
+    post 'icon' => 'users#icon_upload'
+  end
   resources :events
   resources :event_target_users
   resources :event_posts
