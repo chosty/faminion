@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :post_favs
   has_many :events, through: :event_target_users
 
+  has_one :user_icons
+
   enum gender: { blank_gender: 0, male: 1, female: 2 }
   enum role: { blank_role: 0, father: 1, mother: 2, child: 3 }
 
