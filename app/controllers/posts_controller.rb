@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_token, only: [:picture_download]
+  skip_before_action :require_login, only: [:picture_download]
 
   # GET /posts
   # GET /posts.json
