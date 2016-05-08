@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset='utf-8'>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('#login').click(function(){
+          $.ajax({
+          	type: 'POST',
+          	url: 'http://127.0.0.1:3000/user_sessions.json',
+          	dataType: 'json',
+          	data: {email: 'test1@test.com', password: '1234'},
+          	success: function(json){
+              $("#data01").append("<p>          id: "+json.id+"</p>");
+              $("#data01").append("<p>       email: "+json.name+"</p>");
+              $("#data01").append("<p>access_token: "+json.access_token+"</p>");
+              access_token = json.access_token;
+          	},
+          	error: function(){
+          	  alert('something error');
+          	}
+          });
+        });
+      });
+      $(function() {
+        $('#json').click(function(){
+          $.ajax({
+          	type: 'GET',
+          	url: 'http://127.0.0.1:3000/users.json',
+          	dataType: 'json',
+          	headers: {ACCESS_TOKEN: access_token || ""},
+          	success: function(json){
+          	  $.each(json, function(i){
+          	    $("#data02").append("<p>id: "+json[i].name+"</p>");
+          	  });
+          	},
+          	error: function(){
+          	  alert('something error');
+          	}
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <p><a href='#' id='login'>ログイン</a></p>
+    <div id='data01'>
+    </div>
+    <p><a href="#" id="json">JSON</a></p>
+    <div id='data02'>
+    </div>
+  </body>
+</html>
