@@ -25,7 +25,6 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -58,6 +57,26 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def picture_download
+    image = PostPicture.find(params[:picture_id])
+    if image
+      send_data image.picture, type: image.content_type, disposition: 'inline'
+    else
+      render nothing: true, status: 404
+    end
+  end
+
+  def picture_upload
+    image = PostPicture.new(post_id: params[:post_id])
+    image.picture = request.body.read
+    image.content_type = request.media_type
+    if image.save
+      render json: image, except: [:picture]
+    else
+      render json: {error: :faild_save}.to_json , status: 500
     end
   end
 

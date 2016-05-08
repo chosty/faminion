@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   resources :events
   resources :event_target_users
   resources :event_posts
-  resources :posts
+  resources :posts do
+    get 'picture/:picture_id' => 'posts#picture_download'
+    post 'picture' => 'posts#picture_upload'
+  end
   resources :post_favs
 end
