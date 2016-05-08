@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   after_action :clean_up_user_login, if: :json_access?
 
   def require_token
-    auto_login(User.find_by(access_token: request.headers[:HTTP_ACCESS_TOKEN]))
+    if request.headers[:HTTP_ACCESS_TOKEN]
+      auto_login(User.find_by(access_token: request.headers[:HTTP_ACCESS_TOKEN]))
+    else
+      render json: {error: :not_logged_in}.to_json, status: 403
+    end
   end
 
   def clean_up_user_login
