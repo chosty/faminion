@@ -24,6 +24,10 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    params[:post] = {}
+    params[:post][:content] ||= params[:content]
+    params[:post][:family_id] = current_user.family_id
+    params[:post][:user_id] = current_user.id
     @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
