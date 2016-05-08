@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
     else
       render json: {error: :not_logged_in}.to_json, status: 403
     end
+  rescue
+    render json: {error: :unable_token}.to_json, status: 403
   end
 
   def clean_up_user_login
