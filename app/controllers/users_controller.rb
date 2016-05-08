@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   end
 
   def icon_download
-    image = current_user.user_icon
+    image = User.find(params[:user_id]).user_icon
     if image
       send_data image.icon, type: image.content_type, disposition: 'inline'
     else
