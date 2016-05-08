@@ -27,12 +27,31 @@
         $('#json').click(function(){
           $.ajax({
           	type: 'GET',
-          	url: 'http://127.0.0.1:3000/users.json',
+          	url: 'http://127.0.0.1:3000/posts.json',
           	dataType: 'json',
           	headers: {ACCESS_TOKEN: access_token || ""},
           	success: function(json){
           	  $.each(json, function(i){
-          	    $("#data02").append("<p>id: "+json[i].name+"</p>");
+          	    $("#data02").append("<p>name: "+json[i].user.name+" content: "+json[i].content+"</p>");
+          	  });
+          	},
+          	error: function(){
+          	  alert('something error');
+          	}
+          });
+        });
+      });
+      $(function() {
+        $('#posting').click(function(){
+          $.ajax({
+          	type: 'POST',
+          	url: 'http://127.0.0.1:3000/posts.json',
+          	dataType: 'json',
+          	data: {post: {content: "てててててす"}},
+          	headers: {ACCESS_TOKEN: access_token || ""},
+          	success: function(json){
+          	  $.each(json, function(i){
+          	    $("#data03").append("<p>name: "+json[i].user.name+" content: "+json[i].content+"</p>");
           	  });
           	},
           	error: function(){
@@ -46,6 +65,9 @@
   <body>
     <p><a href='#' id='login'>ログイン</a></p>
     <div id='data01'>
+    </div>
+    <p><a href="#" id="posting">Posting</a></p>
+    <div id='data03'>
     </div>
     <p><a href="#" id="json">JSON</a></p>
     <div id='data02'>
