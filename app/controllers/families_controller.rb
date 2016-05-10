@@ -1,5 +1,6 @@
 class FamiliesController < ApplicationController
-  skip_before_action :require_token, only: [:create]
+  skip_before_action :require_token, only: [:create, :findby]
+  skip_before_action :require_login, only: [:create, :findby]
   before_action :set_family, only: [:show, :edit, :update, :destroy]
 
   # GET /families
@@ -13,6 +14,22 @@ class FamiliesController < ApplicationController
   # GET /families/1.json
   def show
     @family = current_user.my_family
+  end
+
+  # GET /families/findby?family_code=x
+  #roteing追加
+  #params[:family_code]=x
+  #findby?family_code=e2f042e2f47281c9
+  #xからFamily検索して引っ張ってきて@familyになげる
+  def findby
+    @family = Family.find_by(family_code: params[:family_code])
+    respond_to do |format|
+      if @family
+        format.json { render :show }
+      else
+        format.json { render json: {"error":"家族コードがありません"}, status: :not_found }
+      end
+    end
   end
 
   # GET /families/new

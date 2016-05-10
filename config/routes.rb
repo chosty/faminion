@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   root :to => 'user_sessions#new'
 
-  resources :families, except: [:index]
+  resources :families, except: [:index] do
+    collection do
+      get 'findby' => 'families#findby'
+    end
+  end
   resources :users do
     get 'icon' => 'users#icon_download'
     post 'icon' => 'users#icon_upload'
