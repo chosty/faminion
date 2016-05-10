@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class FamiliesController < ApplicationController
   skip_before_action :require_token, only: [:create, :findby]
   skip_before_action :require_login, only: [:create, :findby]
@@ -27,7 +28,7 @@ class FamiliesController < ApplicationController
       if @family
         format.json { render :show }
       else
-        format.json { render json: {"error":"家族コードがありません"}, status: :not_found }
+        format.json { render json: {"error" => "家族コードがありません"}, status: :not_found }
       end
     end
   end
