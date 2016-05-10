@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507144234) do
+ActiveRecord::Schema.define(version: 20160510114540) do
 
   create_table "event_posts", force: :cascade do |t|
     t.integer  "event_id"
@@ -46,9 +46,12 @@ ActiveRecord::Schema.define(version: 20160507144234) do
 
   create_table "families", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "family_code"
   end
+
+  add_index "families", ["family_code"], name: "index_families_on_family_code", unique: true
 
   create_table "post_favs", force: :cascade do |t|
     t.integer  "post_id"
