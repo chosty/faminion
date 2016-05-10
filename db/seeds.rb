@@ -1,5 +1,7 @@
 f1 = Family.create(name: "大橋")
+f1.create_family_code
 f2 = Family.create(name: "坂尾")
+f2.create_family_code
 
 u1 = User.create(family_id: f1.id,  name: "大橋亮太", birthday: "1992/02/17", gender: 1, role: 3, email: "test1@test.com", password: "1234")
 u2 = User.create(family_id: f1.id,  name: "大橋啓子", birthday: "1970/02/03", gender: 2, role: 2, email: "test2@test.com", password: "1234")

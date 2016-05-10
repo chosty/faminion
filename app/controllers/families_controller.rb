@@ -1,4 +1,5 @@
 class FamiliesController < ApplicationController
+  skip_before_action :require_token, only: [:create]
   before_action :set_family, only: [:show, :edit, :update, :destroy]
 
   # GET /families
@@ -25,9 +26,9 @@ class FamiliesController < ApplicationController
   # POST /families.json
   def create
     @family = Family.new(family_params)
-
     respond_to do |format|
       if @family.save
+        @family.create_family_code
         format.html { redirect_to @family, notice: 'Family was successfully created.' }
         format.json { render :show, status: :created, location: @family }
       else
