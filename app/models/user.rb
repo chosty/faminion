@@ -1,3 +1,4 @@
+# coding: utf-8
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
@@ -11,8 +12,8 @@ class User < ActiveRecord::Base
 
   has_one :user_icon
 
-  enum gender: { blank_gender: 0, male: 1, female: 2 }
-  enum role: { blank_role: 0, father: 1, mother: 2, child: 3 }
+  GENDER_ARRAY = ['その他', '男性', '女性']
+  ROLE_ARRAY = ['その他', '父', '母', '息子', '娘', '祖父', '祖母']
 
   #スコープ
   #scope :my_family_users, ->(user_id){ where(family_id: Family.where(id: User.find(user_id).family_id)) }
@@ -31,6 +32,14 @@ class User < ActiveRecord::Base
   #自分の家族関連のEventのみを取得する
   def family_events
     Event.where(family_id: self.family_id).all
+  end
+
+  def gender_name
+    GENDER_ARRAY[gender]
+  end
+
+  def role_name
+    ROLE_ARRAY[role]
   end
 
   def session_json
