@@ -1,1 +1,1 @@
-json.extract! @family, :id, :name, :created_at, :updated_at
+json.extract! @family, :id, :name, :family_code

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root :to => 'user_sessions#new'
 
-  resources :families
+  resources :families, except: [:index]
   resources :users do
     get 'icon' => 'users#icon_download'
     post 'icon' => 'users#icon_upload'

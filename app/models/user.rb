@@ -24,6 +24,11 @@ class User < ActiveRecord::Base
     User.where(family_id: self.family_id).all
   end
 
+  #自分の家族のみを取得する
+  def my_family
+    Family.find(self.family_id)
+  end
+
   #自分の家族関連のPostのみを取得する
   def family_posts
     Post.where(family_id: self.family_id).all

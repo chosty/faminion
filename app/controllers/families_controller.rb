@@ -4,13 +4,15 @@ class FamiliesController < ApplicationController
 
   # GET /families
   # GET /families.json
-  def index
-    @families = Family.all
-  end
+  #将来的に死ぬ(死んだ)
+  #def index
+  #  @families = Family.all
+  #end
 
   # GET /families/1
   # GET /families/1.json
   def show
+    @family = current_user.my_family
   end
 
   # GET /families/new
