@@ -101,7 +101,7 @@ class PostsController < ApplicationController
     end
 
     def replied_user(post)
-      User.find_by(id: replied_post(Post.find_by(id: post.in_reply_id)))
+      User.find_by(id: replied_post(Post.find_by(id: post.in_reply_id).user_id))
     end
 
 end
