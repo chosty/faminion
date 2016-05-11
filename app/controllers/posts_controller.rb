@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
-        if @post.in_reply_id..present?
+        if @post.reply_post_id.present?
           GcmNotificator.push_reply(@post)
         else
           GcmNotificator.push_post #投稿を家族に通知
