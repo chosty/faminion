@@ -3,7 +3,8 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.references :family, index: true, foreign_key: true
       t.references :user, index: true, foreign_key: true
-      t.references :reply_post, index: true, foreign_key: true
+      #t.references :reply_post, index: true, foreign_key: true
+      t.integer :reply_post_id
       t.integer :fav_count
       t.string :content
 
