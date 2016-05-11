@@ -31,6 +31,11 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
+        if @post.in_reply_id..present?
+          GcmNotificator.push_reply(@post)
+        else
+          GcmNotificator.push_post #投稿を家族に通知
+        end
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -94,4 +99,9 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:family_id, :user_id, :reply_post_id, :post_favs_count, :content)
     end
+
+    def replied_user(post)
+      User.find_by(id: replied_post(Post.find_by(id: post.in_reply_id)))
+    end
+
 end
