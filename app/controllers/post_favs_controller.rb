@@ -28,7 +28,7 @@ class PostFavsController < ApplicationController
 
     respond_to do |format|
       if @post_fav.save
-        GcmNotificator.push_fav(faved_user(@post_fav))
+        GcmNotificator.push_fav(@post_fav.post.user)
         format.html { redirect_to @post_fav, notice: 'Post fav was successfully created.' }
         format.json { render :show, status: :created, location: @post_fav }
       else
@@ -73,11 +73,4 @@ class PostFavsController < ApplicationController
       params.require(:post_fav).permit(:post_id, :user_id)
     end
 
-    def fav_post(post_fav)
-      Post.find_by(id: post_fav.post_id)
-    end
-
-    def faved_user(post_fav)
-      User.find_by(id: fav_post(Post.find_by(id: post_fav.post_id)).user_id)
-    end
 end

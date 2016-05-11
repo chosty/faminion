@@ -34,7 +34,7 @@ class PostsController < ApplicationController
         if @post.reply_post_id.present?
           GcmNotificator.push_post #投稿を家族に通知
         else
-          GcmNotificator.push_reply(@post)
+          GcmNotificator.push_fav(@post.user)
         end
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
@@ -98,10 +98,6 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:family_id, :user_id, :reply_post_id, :post_favs_count, :content)
-    end
-
-    def replied_user(post)
-      User.find_by(id: replied_post(Post.find_by(id: post.in_reply_id).user_id))
     end
 
 end
