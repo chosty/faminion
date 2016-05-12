@@ -24,7 +24,7 @@ class GcmNotificator
         destination.add(user.device_code)
       end
     end
-    if destination
+    unless user.device_code.blank?
       data = { message: "#{current_user}さんが投稿しました" }
       GCM.send_notification( destination, data )
     end
