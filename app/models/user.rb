@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :events, through: :event_target_users
 
   has_one :user_icon
-  has_one :device_code
+  #has_one :device_code
 
   GENDER_ARRAY = ['その他', '男性', '女性']
   ROLE_ARRAY = ['その他', '父', '母', '息子', '娘', '祖父', '祖母']
