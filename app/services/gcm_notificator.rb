@@ -17,7 +17,7 @@ class GcmNotificator
   end
 
   def self.push_post(current_user)
-    @users = current_user.family_users.delete(current_user)
+    @users = current_user.family_users
     destination = [ ]
     @users.each do | user |
       unless user.device_code.blank?
