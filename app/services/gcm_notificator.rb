@@ -21,7 +21,7 @@ class GcmNotificator
     destination = [ ]
     @users.each do | user |
       unless user.device_code.blank?
-        destination.add(user.device_code)
+        destination << (user.device_code)
       end
     end
     unless destination.blank?
