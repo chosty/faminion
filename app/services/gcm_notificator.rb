@@ -3,7 +3,7 @@ class GcmNotificator
   def self.push_fav(user, current_user)
     unless user.device_code.blank?
       destination = user.device_code
-      data = { message: "#{current_user}さんがいいね！しました" }
+      data = { message: "#{current_user.name}さんがいいね！しました" }
       GCM.send_notification( destination, data )
     end
   end
@@ -11,7 +11,7 @@ class GcmNotificator
   def self.push_reply(user, current_user)
     unless user.device_code.blank?
       destination = user.device_code
-      data = { message: "#{current_user}さんがコメントしました" }
+      data = { message: "#{current_user.name}さんがコメントしました" }
       GCM.send_notification( destination, data )
     end
   end
@@ -21,11 +21,11 @@ class GcmNotificator
     destination = [ ]
     @users.each do | user |
       unless user.device_code.blank?
-        destination << (user.device_code)
+        destination << user.device_code
       end
     end
     unless destination.blank?
-      data = { message: "#{current_user}さんが投稿しました" }
+      data = { message: "#{current_user.name}さんが投稿しました" }
       GCM.send_notification( destination, data )
     end
   end
