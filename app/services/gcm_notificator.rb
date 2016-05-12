@@ -17,13 +17,17 @@ class GcmNotificator
   end
 
   def self.push_post(current_user)
-    @users = current_user.family_users.array.delete(current_user)
+    @users = current_user.family_users.delete(current_user)
     destination = [ ]
     @users.each do | user |
-      destination.add(user.device_code)
+      unless user.device_code.blank?
+        destination.add(user.device_code)
+      end
     end
-    data = { message: "#{current_user}さんが投稿しました" }
-    GCM.send_notification( destination, data )
+    if destination
+      data = { message: "#{current_user}さんが投稿しました" }
+      GCM.send_notification( destination, data )
+    end
   end
 
 end
