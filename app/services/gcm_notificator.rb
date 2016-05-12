@@ -1,18 +1,22 @@
 class GcmNotificator
 
-  def self.push_fav(user)
-    destination = user.device_code
-    data = { message: "#{current_user}さんがいいね！しました" }
-    GCM.send_notification( destination, data )
+  def self.push_fav(user, current_user)
+    unless user.device_code.blank?
+      destination = user.device_code
+      data = { message: "#{current_user}さんがいいね！しました" }
+      GCM.send_notification( destination, data )
+    end
   end
 
-  def self.push_reply(user)
-    destination = user.device_code
-    data = { message: "#{current_user}さんがコメントしました" }
-    GCM.send_notification( destination, data )
+  def self.push_reply(user, current_user)
+    unless user.device_code.blank?
+      destination = user.device_code
+      data = { message: "#{current_user}さんがコメントしました" }
+      GCM.send_notification( destination, data )
+    end
   end
 
-  def self.push_post
+  def self.push_post(current_user)
     @users = current_user.family_users.array.delete(current_user)
     destination = [ ]
     @users.each do | user |

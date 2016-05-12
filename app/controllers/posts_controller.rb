@@ -31,10 +31,10 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
-        if @post.reply_post_id.present?
-          GcmNotificator.push_post #投稿を家族に通知
+        if @post.reply_post_id.blank?
+          GcmNotificator.push_post(current_user) #投稿を家族に通知
         else
-          GcmNotificator.push_fav(@post.user)
+          GcmNotificator.push_fav(@post.user, current_user)
         end
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }

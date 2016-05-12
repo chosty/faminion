@@ -28,7 +28,7 @@ class PostFavsController < ApplicationController
 
     respond_to do |format|
       if @post_fav.save
-        GcmNotificator.push_fav(@post_fav.post.user)
+        GcmNotificator.push_fav(@post_fav.post.user, current_user)
         format.html { redirect_to @post_fav, notice: 'Post fav was successfully created.' }
         format.json { render :show, status: :created, location: @post_fav }
       else
